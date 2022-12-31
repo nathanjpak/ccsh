@@ -1,5 +1,6 @@
 import { expect } from "chai";
-import { pointInPolygon, fetchClinicianStatus } from ".";
+import { pointInPolygon } from ".";
+// import { fetchClinicianStatus } from ".";
 import { Coord, Polygon } from "@turf/helpers";
 
 describe("pointInPolygon Function", function () {

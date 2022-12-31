@@ -9,9 +9,9 @@ import dotenv from "dotenv";
 dotenv.config();
 const apiURL = process.env.API_URL || "";
 
-export const checkClinicianInPolygon = (): boolean => {
-  return true;
-};
+// export const checkClinicianInPolygon = (clinicianData: Array<any>): boolean => {
+//   return pointInPolygon(clinicianData[0], clinicianData[1]);
+// };
 
 export const pointInPolygon = (point: Coord, polygon: Polygon): boolean => {
   return booleanPointInPolygon(point, polygon);
@@ -33,4 +33,21 @@ export const fetchClinicianStatus = async (
   return data;
 };
 
-console.log(fetchClinicianStatus(7));
+export const sendEmail = () => {};
+
+export const parentFunction = async () => {
+  // let clinicianData = await fetchClinicianStatus(7);
+  // console.log(clinicianData);
+  try {
+    for (let clinicianId = 1; clinicianId <= 7; clinicianId++) {
+      let clinicianData = await fetchClinicianStatus(clinicianId);
+
+      console.log(pointInPolygon(clinicianData[0], clinicianData[1]));
+    }
+  } catch (error) {
+    // console.log(error);
+    return null;
+  }
+};
+
+parentFunction();
