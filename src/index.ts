@@ -27,5 +27,5 @@ export const parentFunction = async () => {
   }
 };
 
-parentFunction();
+// parentFunction();
 // fetchClinicianStatus(8);

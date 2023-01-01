@@ -2,14 +2,28 @@ import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
 import axios from "axios";
 
 // types
-import { Coord, Polygon } from "@turf/helpers";
+import { Coord, Polygon, MultiPolygon } from "@turf/helpers";
 
 // config
 import { apiURL } from "./config/dotenvConfig";
 import { transporter, messageOptions } from "./config/nodemailerConfig";
 
-export const pointInPolygon = (point: Coord, polygon: Polygon): boolean => {
-  return booleanPointInPolygon(point, polygon);
+export const pointInPolygon = (
+  point: Coord,
+  ...polygons: Polygon[]
+): boolean => {
+  if (polygons.length === 1) return booleanPointInPolygon(point, polygons[0]);
+
+  // console.log("Multi!");
+
+  let multiPolygon: MultiPolygon = {
+    type: "MultiPolygon",
+    coordinates: polygons.map((polygon) => {
+      return polygon.coordinates;
+    }),
+  };
+
+  return booleanPointInPolygon(point, multiPolygon);
 };
 
 export const fetchClinicianStatus = async (

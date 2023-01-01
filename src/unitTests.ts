@@ -19,7 +19,7 @@ describe("pointInPolygon Function", function () {
   };
 
   it("it should return true for a point in polygon", function () {
-    let testPointA: Coord = {
+    let testPoint: Coord = {
       type: "Feature",
       properties: {},
       geometry: {
@@ -28,13 +28,13 @@ describe("pointInPolygon Function", function () {
       },
     };
 
-    let result = pointInPolygon(testPointA, testPolygon);
+    let result = pointInPolygon(testPoint, testPolygon);
     expect(result).to.be.a("boolean");
     expect(result).to.equal(true);
   });
 
   it("it should return false for a point outside of polygon", function () {
-    let testPointB: Coord = {
+    let testPoint: Coord = {
       type: "Feature",
       properties: {},
       geometry: {
@@ -43,13 +43,13 @@ describe("pointInPolygon Function", function () {
       },
     };
 
-    let result = pointInPolygon(testPointB, testPolygon);
+    let result = pointInPolygon(testPoint, testPolygon);
     expect(result).to.be.a("boolean");
     expect(result).to.equal(false);
   });
 
   it("it should return true for a vertex", function () {
-    let testPointC: Coord = {
+    let testPoint: Coord = {
       type: "Feature",
       properties: {},
       geometry: {
@@ -58,13 +58,13 @@ describe("pointInPolygon Function", function () {
       },
     };
 
-    let result = pointInPolygon(testPointC, testPolygon);
+    let result = pointInPolygon(testPoint, testPolygon);
     expect(result).to.be.a("boolean");
     expect(result).to.equal(true);
   });
 
   it("it should return true for a point on the border", function () {
-    let testPointD: Coord = {
+    let testPoint: Coord = {
       type: "Feature",
       properties: {},
       geometry: {
@@ -73,7 +73,87 @@ describe("pointInPolygon Function", function () {
       },
     };
 
-    let result = pointInPolygon(testPointD, testPolygon);
+    let result = pointInPolygon(testPoint, testPolygon);
+    expect(result).to.be.a("boolean");
+    expect(result).to.equal(true);
+  });
+
+  let testMultiPolygonPartA: Polygon = {
+    type: "Polygon",
+    coordinates: [
+      [
+        [-122.30946063995361, 37.548218088360116],
+        [-122.31645584106445, 37.53875852887022],
+        [-122.29770183563231, 37.53882658754147],
+        [-122.30946063995361, 37.548218088360116],
+      ],
+    ],
+  };
+  let testMultiPolygonPartB: Polygon = {
+    type: "Polygon",
+    coordinates: [
+      [
+        [-122.28710174560547, 37.52000599905024],
+        [-122.29216575622559, 37.51251728365287],
+        [-122.28238105773926, 37.513130024958315],
+        [-122.28710174560547, 37.52000599905024],
+      ],
+    ],
+  };
+
+  it("it should return true for a point inside a multipolygon", function () {
+    let testPoint: Coord = {
+      type: "Feature",
+      properties: {},
+      geometry: {
+        type: "Point",
+        coordinates: [-122.286, 37.515],
+      },
+    };
+
+    let result = pointInPolygon(
+      testPoint,
+      testMultiPolygonPartA,
+      testMultiPolygonPartB
+    );
+    expect(result).to.be.a("boolean");
+    expect(result).to.equal(true);
+  });
+
+  it("it should return false for a point outside a multipolygon", function () {
+    let testPoint: Coord = {
+      type: "Feature",
+      properties: {},
+      geometry: {
+        type: "Point",
+        coordinates: [-122.286, 37.535],
+      },
+    };
+
+    let result = pointInPolygon(
+      testPoint,
+      testMultiPolygonPartA,
+      testMultiPolygonPartB
+    );
+    expect(result).to.be.a("boolean");
+    expect(result).to.equal(false);
+  });
+
+  it("it should return true for a vertex of a multipolygon", function () {
+    let testPoint: Coord = {
+      type: "Feature",
+      properties: {},
+      geometry: {
+        type: "Point",
+        coordinates: [-122.28710174560547, 37.52000599905024],
+      },
+    };
+
+    let result = pointInPolygon(
+      testPoint,
+      testMultiPolygonPartA,
+      testMultiPolygonPartB
+    );
     expect(result).to.be.a("boolean");
     expect(result).to.equal(true);
   });
