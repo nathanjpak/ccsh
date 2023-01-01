@@ -4,6 +4,9 @@ An application that sends email alerts when a clinician is out of their prescrib
 
 # Assumptions
 
+- A clinician will have one position.
+- A clinician's zone can be one or more polygons.
+
 # Solution
 
 These are the steps I considered in approaching this problem:<br>
@@ -32,7 +35,12 @@ For step 2, I initially tried to come up with an original solution. However, I o
 
 Assuming `node` and `npm` are available to use, follow these steps to run the program:<br>
 
-    1. Clone or Fork and Clone this repo.
-    2. Move to this directory in your terminal.
-    3. In the terminal, run `npm install`.
-    4. In the terminal, run `npm start`.
+1.  Clone or Fork and Clone this repo.
+2.  Move to this directory in your terminal.
+3.  Add a .env file in the root level of the directory with the following variables:
+
+- `API*URL=\_URL string provided in challenge prompt*`
+- `EMAIL_PASSWORD="fpuprkjievxguzjz"`
+
+4.  In the terminal, run `npm install`.
+5.  In the terminal, run `npm start`.
