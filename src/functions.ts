@@ -14,8 +14,6 @@ export const pointInPolygon = (
 ): boolean => {
   if (polygons.length === 1) return booleanPointInPolygon(point, polygons[0]);
 
-  // console.log("Multi!");
-
   let multiPolygon: MultiPolygon = {
     type: "MultiPolygon",
     coordinates: polygons.map((polygon) => {

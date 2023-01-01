@@ -1,16 +1,16 @@
 import {
   fetchClinicianStatus,
   pointInPolygon,
+  sendErrorEmail,
   sendOutOfZoneEmail,
 } from "./functions";
 
 export const parentFunction = async () => {
   try {
-    for (let clinicianId = 0; clinicianId <= 7; clinicianId++) {
-      console.log(`clinician Id: ${clinicianId}`);
+    for (let clinicianId = 1; clinicianId <= 6; clinicianId++) {
+      // console.log(`clinician Id: ${clinicianId}`);
       let clinicianData = await fetchClinicianStatus(clinicianId);
 
-      console.log(`clinician Data: ${clinicianData}`);
       if (!clinicianData) continue;
 
       let isClinicianInZone = pointInPolygon(
@@ -18,14 +18,14 @@ export const parentFunction = async () => {
         clinicianData[1]
       );
 
-      // console.log(isClinicianInZone);
-
       if (!isClinicianInZone) sendOutOfZoneEmail(clinicianId);
     }
-  } catch (error) {
+  } catch (error: unknown) {
+    if (error instanceof Error) sendErrorEmail(error);
     return null;
   }
 };
 
-// parentFunction();
-// fetchClinicianStatus(8);
+// run immediately once and then every 3 minutes
+parentFunction();
+setInterval(parentFunction, 3 * 60 * 1000); /* delay of 3 minutes */
