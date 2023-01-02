@@ -8,7 +8,6 @@ import {
 export const parentFunction = async () => {
   try {
     for (let clinicianId = 1; clinicianId <= 6; clinicianId++) {
-      console.log(`clinician Id: ${clinicianId}`);
       let clinicianData = await fetchClinicianStatus(clinicianId);
 
       if (!clinicianData) continue;
