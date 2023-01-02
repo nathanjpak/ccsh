@@ -30,11 +30,9 @@ export const fetchClinicianStatus = async (
   const data = await axios(`${apiURL}/${clinicianId}`)
     .then((response) => {
       if (!response.data.error) return response.data.features;
-      // send error email
       sendErrorEmail(response.data);
     })
     .catch((error) => {
-      // send error email
       // status headers that are not 2xx
       if (error.response) {
         sendErrorEmail({
