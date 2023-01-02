@@ -12,5 +12,5 @@ export const transporter = nodemailer.createTransport({
 
 export const messageOptions = {
   from: "onlyforcodingchallenges@gmail.com",
-  to: "moyipo5578@cmeinbox.com",
+  to: "coding-challenges+alerts@sprinterhealth.com",
 };
